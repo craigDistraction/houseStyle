@@ -97,5 +97,11 @@ This is where the main content and functionlity for this theme is pulled from fo
 
 The custom fields tend to follow the naming convention of extraContent
 
+For a blog style page, the template must be named 
+
+  home.php
+  
+in order for the right template to be inherited, otherwise it will use the index.php template, which is typically the front page. 
+
 
 ## Functions
