@@ -105,3 +105,12 @@ in order for the right template to be inherited, otherwise it will use the index
 
 
 ## Functions
+
+In order for Javascript or jQuery functions to be accepted into the template they must be passed through enqueue in the functions.php. An example of this would be: 
+
+    function my_scripts_method() {
+        wp_enqueue_script( 'scriptaculous' );
+        }
+    add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
+
+This would be used for new libraries like image sliders or DOM manipulation scripts.
