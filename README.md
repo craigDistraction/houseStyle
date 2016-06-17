@@ -75,8 +75,9 @@ The header structure is important as the order of dependencies determines whethe
 This function allows for a different header to loaded in via the correct page file. You may need a different header for the page should you want to optimize what is loaded via each page or provide a different appearence to the header of the site. 
 
 It is important to note that any header created other than the standard header needs to be prefixed with "header-". For example: 
-    
+
     header-secondHeader.php.
+
 You must also ensure to have the wordpress head function at the bottom of the <head> tags because some Wordpress plugins rely on it. For example: 
 
     <head> <?php wp_head(); ?> </head>
@@ -97,16 +98,11 @@ This is where the main content and functionlity for this theme is pulled from fo
 
 The custom fields tend to follow the naming convention of extraContent
 
-For a blog style page, the template must be named 
-
-  home.php
-  
-in order for the right template to be inherited, otherwise it will use the index.php template, which is typically the front page. 
-
+For a blog style page, the template must be named home.php in order for the right template to be inherited, otherwise it will use the index.php template, which is typically the front page. 
 
 ## Functions
 
-In order for Javascript or jQuery functions to be accepted into the template they must be passed through enqueue in the functions.php. An example of this would be: 
+In order for Javascript or jQuery functions to be accepted into the template they must be passed through the functions.php file. An example of this would be: 
 
     function my_scripts_method() {
         wp_enqueue_script( 'scriptaculous' );
@@ -114,3 +110,49 @@ In order for Javascript or jQuery functions to be accepted into the template the
     add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
 
 This would be used for new libraries like image sliders or DOM manipulation scripts.
+
+## Menu
+
+Bootstrap menus are typically easy to write or find a tutorial on a standard responsive one, however what is needed here is integration with Wordpress so that the navigation may be manipulated easier through the Wordpress backend. This nav menu will utilize bootstrap for the framework. 
+
+The first thing to do is register the navigation in the functions.php file. 
+
+    // Registering theme navigation 
+    add_action( 'after_setup_theme', 'wpt_setup' );
+        if ( ! function_exists( 'wpt_setup' ) ):
+            function wpt_setup() {  
+                register_nav_menu( 'primary', __( 'Primary navigation', 'wptuts' ) );
+            } 
+         endif;
+
+This lets wordpress know that the menu exists. In order for this work properly in the current version of Wordpress (4.5.2) there needs to be a workaround used to properly implement the drop down nav walker. For this download the files from: 
+
+https://github.com/twittem/wp-bootstrap-navwalker
+
+Drop this into the theme root in the Wordpress file struture and enqueue it using this in functions.php: 
+
+    // Register custom navigation walker
+    require_once('wp_bootstrap_navwalker.php');
+
+This is then utilized through the HTML and PHP shown below. This should placed at the navbar-collapse position in the Bootstrap example of a navigation.
+
+    <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <?php /* Primary navigation */
+              wp_nav_menu( array(
+              'menu' => 'top_menu',
+              'theme_location' => 'primary',
+              'depth' => 2,
+              'container' => 'div',
+              'container_class' => 'container ',
+              'menu_class' => 'nav navbar-nav',
+              'allback_cb' => 'wp_bootstrap_navwalker::fallback',
+              //Process nav menu using our custom nav walker
+              'walker' => new wp_bootstrap_navwalker())
+            );
+            ?>   
+          </ul>   
+    </div>
+    
+As a note this may cause the navigation bar to slide under the space for the logo. In order to fix this remove the float: left, from the nav. This will jostle everything into place. 
+
