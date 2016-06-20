@@ -1,0 +1,52 @@
+/*
+Theme Name: distractionHouseStyle
+Theme URI: ENTER Later
+Description: A theme created to speed up the creation of website adhering to the golden chalice style of site
+Version: 0.1
+
+License: Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+License URI: http://creativecommons.org/licenses/by-sa/3.0/
+*/
+
+
+
+@import url('css/bootstrap-theme.css');
+@import url('css/bootstrap-theme.min.css');
+@import url('css/bootstrap.css');
+@import url('css/bootstrap.min.css');
+
+/****** NavBar Styles ******/
+
+.navbar{
+	margin-bottom: 0;
+}
+
+.navbar-nav{
+		float: none;
+}
+
+
+@media screen and (max-width: 767px){
+	.navbar-nav{
+		float: none;
+	}
+}
+
+
+
+
+/****** Header Styles ******/
+
+
+.jumbotron{
+	text-align: center;
+	height: 50vh;
+}
+
+@media screen and (max-width: 767px){
+	
+	.jumbotron{
+		height: auto;	
+	}
+	
+}
