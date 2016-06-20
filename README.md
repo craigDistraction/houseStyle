@@ -98,7 +98,7 @@ This is where the main content and functionlity for this theme is pulled from fo
 
 The custom fields tend to follow the naming convention of extraContent
 
-For a blog style page, the template must be named home.php in order for the right template to be inherited, otherwise it will use the index.php template, which is typically the front page. 
+For a blog style page, the template must be named home.php in order for the right template to be inherited, otherwise it will use the index.php template, which is typically the front page. Wordpress templates typically use home.php first for the front page as they show blog posts before anything else. if this isn't found or a template is chosen in the page options then index or another gile can be chosen. In order to over-ride both home.php and index.php one can use the front-page.php file name to ensure that file gets used for the home page. However, for whatever reason, this disables the ability to choose templates on any other pages. Therefore use with caution.
 
 ## Functions
 
